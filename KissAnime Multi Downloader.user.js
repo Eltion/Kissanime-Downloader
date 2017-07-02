@@ -1,4 +1,4 @@
-https://greasyfork.org/en/users/135934-anime-bro1/webhook// ==UserScript==
+// ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
 // @version      0.1
@@ -12,8 +12,8 @@ https://greasyfork.org/en/users/135934-anime-bro1/webhook// ==UserScript==
 // @grant        GM_xmlhttpRequest
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
 
-// @require      http://kissanime.ru/Scripts/css.js
-// @require      http://kissanime.ru/Scripts/vr.js?v=1
+// @require      https://rawgit.com/Eltion/Kissanime-Downloader/master/css.js
+// @require      https://rawgit.com/Eltion/Kissanime-Downloader/master/vr.js
 
 // ==/UserScript==
 
