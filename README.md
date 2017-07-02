@@ -21,3 +21,6 @@ After creating list.txt follow these steps
 3. Run Downloader.bat
 4. Set the name of folder where to save the episodes.
 
+## Video Tutorial for How to Use
+
+https://github.com/Eltion/Kissanime-Downloader/blob/master/VideoTutorial.mp4
