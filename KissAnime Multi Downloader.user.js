@@ -166,9 +166,15 @@ function Complete() {
 
 function CaptachaNotCompleted(url){
     console.log("Eltioni: "+ url);
-    var x = $.ajax({type: "POST", url:"http://kissanime.ru/Mobile/GetEpisode", data:{eID:2693},async: false}).responseText;
+    var t = url.split("?id=")[1];
+    alert(t);
+    var x = $.ajax({type: "POST", url:"http://kissanime.ru/Mobile/GetEpisode", data:{eID:t},async: false}).responseText;
     x = x.split("|||")[0];
-    epsLinks.push(x);
+    if(x.includes("rapidvideo")){
+        rapidvideo(x);
+    }else{
+        epsLinks.push(x);
+    }   
 }
 
 function postdata(answer){
@@ -380,7 +386,3 @@ function loadImage(items, i, onComplete) {
     img.addEventListener("load", onLoad, false);
     img.src = "http://kissanime.ru/Special/"+items[i];
 }
-
-
-
-
