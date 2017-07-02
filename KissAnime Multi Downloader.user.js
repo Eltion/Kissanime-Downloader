@@ -12,8 +12,8 @@
 // @grant        GM_xmlhttpRequest
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
 
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/8bad11bd/css.js
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/8bad11bd/vr.js
+// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/css.js
+// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/vr.js
 
 // ==/UserScript==
 
