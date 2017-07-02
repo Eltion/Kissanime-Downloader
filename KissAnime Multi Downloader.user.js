@@ -44,6 +44,7 @@ var max = 1;
 (function() {
     if(!isBasicJson()){
         getBasicJson();
+        return;
     }
     max = $(".listing").find("a").toArray().length;
     createButton();
@@ -167,7 +168,6 @@ function Complete() {
 function CaptachaNotCompleted(url){
     console.log("Eltioni: "+ url);
     var t = url.split("?id=")[1];
-    alert(t);
     var x = $.ajax({type: "POST", url:"http://kissanime.ru/Mobile/GetEpisode", data:{eID:t},async: false}).responseText;
     x = x.split("|||")[0];
     if(x.includes("rapidvideo")){
@@ -260,6 +260,9 @@ function getLinkWithSetQuality(ee){
 }
 
 function getBasicJson(){
+     $("body").append('<div id="CaptchaInfo" style="display:none;width:200px;height:150px;font-size:20px;position:fixed; top: 10px; left:10px; background: red; border-radius: 25px;padding:40px;"><p></p></div>');
+    $("#CaptchaInfo").show();
+    $("#CaptchaInfo").find("p").html("First time running, fetching some files... Page will reload.");
     var msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJson.json", async: false}).responseText;
     msg = JSON.parse(msg);
     for(var i = 0; i < msg.length; i++){
