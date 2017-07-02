@@ -26,10 +26,6 @@ var epsName = [];
 var epsLinks = [];
 var failedLinks = [];
 
-//var _0xdbfd = ["\x6E\x6E\x73\x64\x66\x62\x32\x33\x6E\x6D\x61\x73\x64\x6C\x30\x34\x37\x73\x6D", "\x70\x61\x72\x73\x65", "\x48\x65\x78", "\x65\x6E\x63"]; skH = _0xdbfd[0]; iv = CryptoJS[_0xdbfd[3]][_0xdbfd[2]][_0xdbfd[1]](bkZ); key = CryptoJS.SHA256(skH);  //TODO Don't hardcode this
-//var _0xc35a = ["\x63", "\x72\x65\x70\x6C\x61\x63\x65"]; skH = skH[_0xc35a[1]](/a/g, _0xc35a[0]);key = CryptoJS.SHA256(skH); //TODO Don't hardcode this
-//var _0x32ba = ["\x39\x6D\x73\x6E\x33\x32\x34\x73\x37\x39\x33\x32\x34\x30\x63\x6D\x7A\x78\x63\x6E", "\x70\x61\x72\x73\x65", "\x48\x65\x78", "\x65\x6E\x63"]; skH = _0x32ba[0]; iv = CryptoJS[_0x32ba[3]][_0x32ba[2]][_0x32ba[1]](bkZ); key = CryptoJS.SHA256(skH);
-
 var count = 1;
 var failedCount = 0;
 
