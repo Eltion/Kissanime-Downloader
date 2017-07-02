@@ -8,7 +8,7 @@ This is a userscript that will download multi episodes form KissAnime. It also c
 ## How to Use
 Visit a Anime page in Kissanime and at the bottom you should see some options like this:
 1. Start - Write the number form which you want to start to download(including it). Default value = 1
-2. End - Write the number of episode where you want to stop downloading(including it). Default value = Total nr of episodes.
+2. End - Write the number of episode where you want to stop downloading(including it). Default value = Total number of episodes.
 3. Quality - Format example: 1080,720,480,360 - this would check if there exist a 1080p version of that episode if not than it will check for the next quality and so on. Other example - 360,480,720,1080 this will download the lowest quality possible. Default value = 720,480,360
 4. Text List - Creates a text list from which you can download eposides in windows. See below "How to Download"
 5. HTML List - Creates a html file with all links.
