@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      0.2
+// @version      2
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
