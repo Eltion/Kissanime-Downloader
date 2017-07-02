@@ -23,4 +23,4 @@ After creating list.txt follow these steps
 
 ## Video Tutorial for How to Use
 
-https://github.com/Eltion/Kissanime-Downloader/blob/master/VideoTutorial.mp4
+https://github.com/Eltion/Kissanime-Downloader/blob/master/VideoToutorial.html
