@@ -3,7 +3,7 @@ This is a userscript that will download multi episodes form KissAnime. It also c
 
 ## How to Install
 1. Install [Tampermonkey (Chrome)](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [ Greasemonkey(Firefox)](https://addons.mozilla.org/firefox/addon/greasemonkey/)
-2. Install the script
+2. Install the [script](https://greasyfork.org/en/scripts/31080-kissanime-multi-downloader)
 
 ## How to Use
 Visit a Anime page in Kissanime and at the bottom you should see some options like this:
