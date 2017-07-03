@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2
+// @version      2.1
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -26,7 +26,7 @@ var epsName = [];
 var epsLinks = [];
 var failedLinks = [];
 
-var count = 1;
+var count = 0;
 var failedCount = 0;
 
 var start = "";
@@ -44,7 +44,6 @@ var max = 1;
 (function() {
     if(!isBasicJson()){
         getBasicJson();
-        return;
     }
     max = $(".listing").find("a").toArray().length;
     createButton();
@@ -111,26 +110,49 @@ function getEP(url){
     var msg = $.ajax({type: "GET", url: url, async: false}).responseText;
     $('#aoutput').append(" <b style='color:green'>Done</b>");
     if(isCapacha(msg)){
-        GetWords(msg);
-        getImages(msg);
+        GetWords(msg,function(){
+            getImages(msg,function(){
+                count++;
+                if(count < eps.length){
+                    getEP(eps[count]);
+                }else{
+                    setTimeout(function(){
+                        AllDone();
+                    }, 5000);
+                }
+            });
+      });
     }else{
         //alert("x");
-        noCapacha(msg);
+        noCapacha(msg,function(){
+            count++;
+            getEP(eps[count]);
+        });
     }
    // var persentage = (epsLinks.length/eps.length)*100;
     //$('#aprogress').html(persentage+"%");
+}
+
+function AllDone(){
+    $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a>');
+     console.log("DONE");
+     console.log(epsLinks);
+    if(isText){
+        createTxtList();
+    }if(isHTML){
+        createHTMLlist();
+    }if(isM3U8){
+        createM3U8();
+    }
 }
 
 function isCapacha(html){
     return html.includes("formVerify");
 }
 
-function noCapacha(html){
+function noCapacha(html,callback){
     getLinks(html);
-    if(count < eps.length){
-            getEP(eps[count]);
-            count++;
-    }
+    callback();
 }
 
 function isBasicJson(){
@@ -260,10 +282,22 @@ function getLinkWithSetQuality(ee){
 }
 
 function getBasicJson(){
-     $("body").append('<div id="CaptchaInfo" style="display:none;width:200px;height:150px;font-size:20px;position:fixed; top: 10px; left:10px; background: red; border-radius: 25px;padding:40px;"><p></p></div>');
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    $("body").append('<div id="CaptchaInfo" style="display:none;width:200px;height:150px;font-size:20px;position:fixed; top: 10px; left:10px; background: red; border-radius: 25px;padding:40px;"><p></p></div>');
     $("#CaptchaInfo").show();
     $("#CaptchaInfo").find("p").html("First time running, fetching some files... Page will reload.");
-    var msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJson.json", async: false}).responseText;
+    
+    var msg='';
+    if(isChrome){
+        msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJson.json", async: false}).responseText;
+    }else if(isFirefox){
+        alert("x");
+         msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJsonFirefox.json", async: false}).responseText;
+    }else{
+        alert("Not FireFox or Chrome");
+        msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJsonFireFox.json", async: false}).responseText;
+    }
     msg = JSON.parse(msg);
     for(var i = 0; i < msg.length; i++){
         GM_setValue(msg[i].n,msg[i].v);
@@ -271,39 +305,23 @@ function getBasicJson(){
     location.reload();
 }
 
-function getImages(html){
+function getImages(html,callback){
     //console.log(html);
     var items = html.match(/CapImg\?f=[^"']*/g);
     //console.log(items);
     loader(items, loadImage, function () {
         Complete();
-        //alert(count);
-        console.log(failedLinks);
-        if(count < eps.length){
-            getEP(eps[count]);
-            count++;
-        }else{
-            $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a>');
-            console.log("DONE");
-            console.log(epsLinks);
-            if(isText){
-                createTxtList();
-            }
-            if(isHTML){
-                createHTMLlist();
-            }if(isM3U8){
-                createM3U8();
-            }
-        }
+        callback();
     });
 }
 
-function GetWords(html){
+function GetWords(html,callback){
     var form = html.split("formVerify")[1].split("</form")[0];
     var x = form.match(/(?:<span[^>]*>\s*)([^<]*)/g);
     var word1 = x[0].split(">")[1].replace(/\s\s/g,"");
     var word2 = x[1].split(">")[1].replace(/\s\s/g,"");
     words = [word1,word2];
+    callback();
 }
 
 function createTxtList(){
@@ -356,12 +374,12 @@ function loader(items, thingToDo, allDone) {
         items = [items];
     }
 
-    var count = items.length;
+    var count1 = items.length;
 
     // this callback counts down the things to do.
     var thingToDoCompleted = function (items, i) {
-        count--;
-        if (0 === count) {
+        count1--;
+        if (0 === count1) {
             allDone(items);
         }
     };
@@ -389,7 +407,3 @@ function loadImage(items, i, onComplete) {
     img.addEventListener("load", onLoad, false);
     img.src = "http://kissanime.ru/Special/"+items[i];
 }
-
-
-
-
