@@ -16,10 +16,17 @@ Visit a Anime page in Kissanime and at the bottom you should see some options li
 
 ## How to Download
 After creating list.txt follow these steps
-1. [Download](https://github.com/Eltion/Kissanime-Downloader/raw/master/KissAnime%20Downloader.zip) and extract "Kissanime Downloader.zip"
+1. [Download](https://github.com/Eltion/Kissanime-Downloader/raw/master/KissAnime%20Downloader.zip) and extract "Kissanime Downloader.zip" or  [Download](https://github.com/Eltion/Kissanime-Downloader/raw/master/Downloader.sh)(Linux/macOS)
+### Windows
 2. Inside the "Kissanime Downloader" folder copy list.txt
 3. Run Downloader.bat
 4. Set the name of folder where to save the episodes.
+
+### Linux/macOS
+2. Install curl
+3. Edit the loaction inside the script
+4. Copy list.txt
+5. Run Downloader.sh
 
 ## Video Tutorial for How to Use
 
