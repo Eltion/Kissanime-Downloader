@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2.1
+// @version      2.2
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -68,7 +68,7 @@ var max = 1;
 
 function createButton(){
     var imgSrc = "https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg";
-    var html = "<div id='adownloader' style='position:fixed; bottom:10px; left:10px'><img id='startscript' style='cursor:pointer;float:left;position: relative; top:5px;margin-right:10px;' width='70px' src='https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg' /><div style='background:#dd4814; position: relative;height:70px;padding:10px; border-radius: 10px; text-align:center; color: white;float: left;'><div style='display: inline-block;float: left;'>Start: <input value='1' id='astart' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input>  End: <input id='aend' value='5' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input><br /><br />Quality: <input id='aquality' value='720,480,360' style='color:white; text-align:center; width: 75px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input></div><div style='display:inline-block;float:left;'><input id='atxt' type='checkbox' />Text List <br /><input id='ahtml' type='checkbox' />html List<br /><input id='am3u8' type='checkbox' />m3u8 List</div><a style='display:block; text-align:center;' href='https://github.com/Eltion/Kissanime-Downloader' target='_blank' >Help?</a></div></div>";
+    var html = "<div id='adownloader' style='position:fixed; bottom:10px; left:10px'><img id='startscript' style='cursor:pointer;float:left;position: relative; top:5px;margin-right:10px;' width='70px' src='https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg' /><div style='background:#dd4814; position: relative;height:70px;padding:10px; border-radius: 10px; text-align:center; color: white;float: left;'><div style='display: inline-block;float: left;'>Start: <input value='1' id='astart' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input>  End: <input id='aend' value='5' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input><br /><br />Quality: <input id='aquality' value='1080,720,480,360' style='color:white; text-align:center; width: 75px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input></div><div style='display:inline-block;float:left;'><input id='atxt' type='checkbox' />Text List <br /><input id='ahtml' type='checkbox' />html List<br /><input id='am3u8' type='checkbox' />m3u8 List</div><a style='display:block; text-align:center;' href='https://github.com/Eltion/Kissanime-Downloader' target='_blank' >Help?</a></div></div>";
     var html2 = "<div id='ainfo' style=' padding:10px; border-radius:20px;position:fixed; display: none; bottom:10px; right:10px; background:#dd4814;height:100px;width:400px;'><h3 style='text-align: center'>KissAnime Downloader</h3><p style='width:100%; word-wrap: break-word;' id='aoutput'></p><p id='aprogress'></p></div>";
     //var html3 = "<div id='ainfo2' style='background: red; padding: 10px; position: a'>"
     $('body').append(html);
@@ -335,8 +335,9 @@ function createTxtList(){
 function createHTMLlist(){
     var list ="";
     for(var i = 0; i < epsLinks.length; i++){
-        list += '<a href="' + epsLinks[i] + '" download="' +  epsName[i] + '">' +  epsName[i] + '</a><br>';
+        list += '<a href="' + epsLinks[i] + '" download="' +  epsName[i] + '">' +  epsName[i] + '</a> <span onclick="e(this)"><u>(WATCH)</u></span><br>';
     }
+    list += '<video id="video" src="" width="600" controls></video> <script type="text/javascript"> function e(a){ document.getElementById("video").src = a.previousSibling.previousSibling.href; } </script>';
     download("list.html","text/html",list);
 }
 
