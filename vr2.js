@@ -91,6 +91,6 @@ var animebro2 = 0;
          _0xde42x1c = _0xde42x1e.toString(CryptoJS['enc'].Utf8);
          return _0xde42x1c
      } catch (err) {
-         animebro2 = 1;
+         return 0;
      }
  }
