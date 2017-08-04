@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2.2
+// @version      2.3
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -13,7 +13,7 @@
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
 
 // @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/css.js
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/vr.js
+// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/4fc64d92baba62fb52de03a3472464c2b6466ed9/vr2.js
 
 // ==/UserScript==
 
@@ -68,7 +68,7 @@ var max = 1;
 
 function createButton(){
     var imgSrc = "https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg";
-    var html = "<div id='adownloader' style='position:fixed; bottom:10px; left:10px'><img id='startscript' style='cursor:pointer;float:left;position: relative; top:5px;margin-right:10px;' width='70px' src='https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg' /><div style='background:#dd4814; position: relative;height:70px;padding:10px; border-radius: 10px; text-align:center; color: white;float: left;'><div style='display: inline-block;float: left;'>Start: <input value='1' id='astart' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input>  End: <input id='aend' value='5' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input><br /><br />Quality: <input id='aquality' value='1080,720,480,360' style='color:white; text-align:center; width: 75px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input></div><div style='display:inline-block;float:left;'><input id='atxt' type='checkbox' />Text List <br /><input id='ahtml' type='checkbox' />html List<br /><input id='am3u8' type='checkbox' />m3u8 List</div><a style='display:block; text-align:center;' href='https://github.com/Eltion/Kissanime-Downloader' target='_blank' >Help?</a></div></div>";
+    var html = "<div id='adownloader' style='position:fixed; bottom:10px; left:10px'><img id='startscript' style='cursor:pointer;float:left;position: relative; top:5px;margin-right:10px;' width='90px' src='https://assets.ubuntu.com/v1/4cd0df1c-picto-download-orange.svg' /><div style='background:#dd4814; position: relative;height:90px;padding:10px; border-radius: 10px; text-align:center; color: white;float: left;'><div style='display: inline-block;float: left;'>Start: <input value='1' id='astart' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input>  End: <input id='aend' value='5' style='color:white; text-align:center; width: 30px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input><br /><br />Quality: <input id='aquality' value='1080,720,480,360' style='color:white; text-align:center; width: 75px; background: transparent; border:0.3px solid white; border-radius:5px;' type='text'></input></div><div style='display:inline-block;float:left;'><input id='atxt' type='checkbox' />Text List <br /><input id='ahtml' type='checkbox' />html List<br /><input id='am3u8' type='checkbox' />m3u8 List</div><div style='float left'><a href='http://errors.000webhostapp.com/ee.html'>Export list.html to other device.</a></div><a style='display:block; text-align:center;' href='https://github.com/Eltion/Kissanime-Downloader' target='_blank' >Help?</a></div></div>";
     var html2 = "<div id='ainfo' style=' padding:10px; border-radius:20px;position:fixed; display: none; bottom:10px; right:10px; background:#dd4814;height:100px;width:400px;'><h3 style='text-align: center'>KissAnime Downloader</h3><p style='width:100%; word-wrap: break-word;' id='aoutput'></p><p id='aprogress'></p></div>";
     //var html3 = "<div id='ainfo2' style='background: red; padding: 10px; position: a'>"
     $('body').append(html);
@@ -86,10 +86,21 @@ function getAllEps(){
         epsName.push(x[i].innerText);
     }
   
-    if(start < 0 || end < start || end > eps.length || !(isText || isHTML || isM3U8)){
-        alert("Wrong Options. Max number:"+eps.length);
+    if(parseInt(start) < 0){  // 0 || end < start || end > eps.length || !(isText || isHTML || isM3U8)
+        alert("Error: Start < 0");
+        return;
+    }else if(parseInt(end) < parseInt(start)){
+        alert(end+" "+start);
+         alert("Error: Start > End");
+        return;
+    }else if(parseInt(end) > eps.length){
+        alert("End > total nr of episodes. Max nr"+eps.length);
+        return;
+    }else if(!(isText || isHTML || isM3U8)){
+        alert("Please select one of opitons");
         return;
     }
+    
     $("#adownloader").hide(500);
     $("#ainfo").show(500);
     eps.reverse();
@@ -134,7 +145,7 @@ function getEP(url){
 }
 
 function AllDone(){
-    $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a>');
+    $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a>  <a href="http://errors.000webhostapp.com/ee.html">Export list.html</a>');
      console.log("DONE");
      console.log(epsLinks);
     if(isText){
@@ -224,18 +235,39 @@ function getLinks(html){
         var $rr = $($.parseHTML(html,document,true));
         if(animebro  == null){
             //alert("xx");
-            var script1 = $rr.find("script").toArray()[6].innerHTML;
-            var script2 = $rr.find("script").toArray()[7].innerHTML;
+            var script1 = $rr.find("script").toArray()[5].innerHTML;
+            var script2 = $rr.find("script").toArray()[6].innerHTML;
+            var script3 = $rr.find("script").toArray()[7].innerHTML;
+            var script4 = $rr.find("script").toArray()[8].innerHTML;
+            var script5 = $rr.find("script").toArray()[9].innerHTML;
+            var script6 = $rr.find("script").toArray()[10].innerHTML;
+            //alert(script1);
+            //alert(script2);
             eval("animebro = 1;"+script1);
             eval("animebro = 1;"+script2);
+            eval("animebro = 1;"+script1);
+            eval("animebro = 1;"+script3);
+            eval("animebro = 1;"+script4);
+            eval("animebro = 1;"+script5);
         }
         var x = $rr.find("#slcQualix").find("option").toArray();
+        var gg = false;
         for(var i = 0; i < x.length; i++){
-            var c = {"file": ovelWrap(x[i].value), "label": x[i].innerText};
-            b.push(c);
+            var ttt = ovelWrap(x[i].value);
+            if(ttt !== 0 && ttt.length > 0){
+                alert(ttt);
+                var c = {"file": ttt, "label": x[i].innerText};
+                b.push(c);
+            }else {
+                gg = true;
+                CaptachaNotCompleted(eps[count]);
+                break;
+            }
         }
-        console.log(b);
-        getLinkWithSetQuality(b);
+        if(!gg){
+            console.log(b);
+            getLinkWithSetQuality(b);
+        }
     }else if(server == 2){
         var openload = html.match(/https:\/\/openload.co\/embed\/[^"']*/g);
         console.log(openload);
