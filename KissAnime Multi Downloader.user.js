@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2.3
+// @version      2.4
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -10,6 +10,8 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
+// @grant        GM_listValues
+// @grant        GM_deleteValue
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
 
 // @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/css.js
@@ -43,6 +45,7 @@ var max = 1;
 
 (function() {
     if(!isBasicJson()){
+        factoryReset();
         getBasicJson();
     }
     max = $(".listing").find("a").toArray().length;
@@ -166,9 +169,16 @@ function noCapacha(html,callback){
     callback();
 }
 
-function isBasicJson(){
-    return GM_getValue("AnimeBro1",false);
+function factoryReset(){
+    var keys = GM_listValues();
+    for (var i=0; i < keys.length; i++) {
+        GM_deleteValue(keys[i]);
+    }
 }
+function isBasicJson(){
+    return GM_getValue("AnimeBro2",false);
+}
+
 
 function Complete() {
     var jj = 0;
@@ -316,19 +326,16 @@ function getLinkWithSetQuality(ee){
 function getBasicJson(){
     var isFirefox = typeof InstallTrigger !== 'undefined';
     var isChrome = !!window.chrome && !!window.chrome.webstore;
-    $("body").append('<div id="CaptchaInfo" style="display:none;width:200px;height:150px;font-size:20px;position:fixed; top: 10px; left:10px; background: red; border-radius: 25px;padding:40px;"><p></p></div>');
     $("#CaptchaInfo").show();
     $("#CaptchaInfo").find("p").html("First time running, fetching some files... Page will reload.");
-    
     var msg='';
     if(isChrome){
-        msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJson.json", async: false}).responseText;
+        msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/623d627fa2ec94dea00621e406e66088a61b6bff/BasicJson1.json", async: false}).responseText;
     }else if(isFirefox){
-        alert("x");
-         msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJsonFirefox.json", async: false}).responseText;
+        msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/623d627fa2ec94dea00621e406e66088a61b6bff/BasicJsonFireFox1.json", async: false}).responseText;
     }else{
-        alert("Not FireFox or Chrome");
-        msg = $.ajax({type: "GET", url: "https://rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/master/BasicJsonFireFox.json", async: false}).responseText;
+        alert("Not Chrome or Firefox. Tryng the chrome database");
+        msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/623d627fa2ec94dea00621e406e66088a61b6bff/BasicJson1.json", async: false}).responseText;
     }
     msg = JSON.parse(msg);
     for(var i = 0; i < msg.length; i++){
@@ -369,7 +376,7 @@ function createHTMLlist(){
     for(var i = 0; i < epsLinks.length; i++){
         list += '<a href="' + epsLinks[i] + '" download="' +  epsName[i] + '">' +  epsName[i] + '</a> <span onclick="e(this)"><u>(WATCH)</u></span><br>';
     }
-    list += '<video id="video" src="" width="600" controls></video> <script type="text/javascript"> function e(a){ document.getElementById("video").src = a.previousSibling.previousSibling.href; } </script>';
+    list += '<video id="video" src="'+epsLinks[0]+'" width="600" autoplay controls></video> <script type="text/javascript"> function e(a){ document.getElementById("video").src = a.previousSibling.previousSibling.href; } </script>';
     download("list.html","text/html",list);
 }
 
