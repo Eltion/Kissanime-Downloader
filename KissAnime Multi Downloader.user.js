@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2.4
+// @version      2.5
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -148,7 +148,7 @@ function getEP(url){
 }
 
 function AllDone(){
-    $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a>  <a href="http://errors.000webhostapp.com/ee.html">Export list.html</a>');
+    $("#ainfo").html('Done, <a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank">What to do now??</a> <br /> <br />  <a href="http://errors.000webhostapp.com/ee.html">Export list.html</a>');
      console.log("DONE");
      console.log(epsLinks);
     if(isText){
@@ -214,10 +214,10 @@ function CaptachaNotCompleted(url){
     var x = $.ajax({type: "POST", url:"http://kissanime.ru/Mobile/GetEpisode", data:{eID:t},async: false}).responseText;
     x = x.split("|||")[0];
     if(x.includes("rapidvideo")){
-        rapidvideo(x);
+        rapidvideo(x+"&q="+quality[0]);
     }else{
         epsLinks.push(x);
-    }   
+    }
 }
 
 function postdata(answer){
@@ -283,7 +283,7 @@ function getLinks(html){
         console.log(openload);
     }else if(server == 3){
         var url = html.match(/https:\/\/www.rapidvideo.com\/e\/[^"']*/g);
-        rapidvideo(url);
+        rapidvideo(url+"&q="+quality[0]);
     }
 
 }
@@ -295,12 +295,12 @@ function rapidvideo(url){
         url: ""+url,
         synchronous: true,
         onload: function(response) {
-            var e = JSON.parse(response.responseText.split('"sources": ')[1].split("]")[0]+"]");
+            var e = response.responseText.split('<source src="')[1].split('"')[0];
             if (e === undefined || e === null) {
                 console.log(response.responseText);
             }else{
                 console.log(e);
-                getLinkWithSetQuality(e);
+                epsLinks.push(e);
             }
         }
     });
