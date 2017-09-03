@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Multi Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      2.5
+// @version      2.6
 // @description  This is a userscript that will download multi episodes form KissAnime. It also can create m3u8 playlist.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -214,7 +214,13 @@ function CaptachaNotCompleted(url){
     var x = $.ajax({type: "POST", url:"http://kissanime.ru/Mobile/GetEpisode", data:{eID:t},async: false}).responseText;
     x = x.split("|||")[0];
     if(x.includes("rapidvideo")){
-        rapidvideo(x+"&q="+quality[0]);
+        var q;
+        if(quality[0] == "1080"){
+            q = quality[1];
+        }else{
+            q = quality[0];
+        }
+    rapidvideo(x+"&q="+q+"p");
     }else{
         epsLinks.push(x);
     }
@@ -283,7 +289,13 @@ function getLinks(html){
         console.log(openload);
     }else if(server == 3){
         var url = html.match(/https:\/\/www.rapidvideo.com\/e\/[^"']*/g);
-        rapidvideo(url+"&q="+quality[0]);
+        var q;
+        if(quality[0] == "1080"){
+            q = quality[1];
+        }else{
+            q = quality[0];
+        }
+    rapidvideo(url+"&q="+q+"p");
     }
 
 }
@@ -334,7 +346,7 @@ function getBasicJson(){
     }else if(isFirefox){
         msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/623d627fa2ec94dea00621e406e66088a61b6bff/BasicJsonFireFox1.json", async: false}).responseText;
     }else{
-        alert("Not Chrome or Firefox. Tryng the chrome database");
+        alert("Not Chrome or Firefox. Trying the chrome database");
         msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/623d627fa2ec94dea00621e406e66088a61b6bff/BasicJson1.json", async: false}).responseText;
     }
     msg = JSON.parse(msg);
