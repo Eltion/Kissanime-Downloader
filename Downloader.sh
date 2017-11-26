@@ -16,5 +16,5 @@ while read p; do
   NAME=${p##*[}
   URL=${p%[*}
 
-  curl -o ${FOLDER}/${NAME} {$URL}
+  curl -L -k -e "auto;" -b cookies.txt -c cookies.txt -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36" -o ${FOLDER}/${NAME} {$URL}
 done <${FOLDER}/list.txt
