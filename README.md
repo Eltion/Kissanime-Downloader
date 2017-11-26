@@ -42,6 +42,14 @@ After creating list.txt follow these steps
 4. Copy list.txt
 5. Run Downloader.sh
 
+## How to Download with IDM
+0. Make sure that IDM is running and is installed into default loaction.
+1. Open the generated zip file
+2. Run the IDMan.bat
+
+If IDMan shows errors while downloading just run it again.  
+Anime will be downloaded in Downloads folder. 
+
 ## Video Tutorial for How to Use
 
 https://rawgit.com/Eltion/Kissanime-Downloader/master/VideoTutorial.html
