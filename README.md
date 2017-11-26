@@ -21,7 +21,7 @@ Visit a Anime page in Kissanime and at the bottom you should see some options li
     3. M3U8  - Creates a m3u8 playlist (Play with VLC or MX Player).
     4. IDM   - Creates a bat file which starts IDM (with the correnct episode name)
 
-5.Select one of the options below:
+5. Select one of the options below:
     1. Beta         - Downloads form beta server
     2. RapidVideo   - Downloads from rapidVideo 
    
