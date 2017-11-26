@@ -19,7 +19,7 @@
 // @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/css.js
 // @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/4fc64d92baba62fb52de03a3472464c2b6466ed9/vr2.js
 // @require      https://cdn.rawgit.com/Stuk/jszip/579beb1d45c8d586d8be4411d5b2e48dea018c06/dist/jszip.min.js
-// @require      https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js
+// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/b24ffcadd00a4f3eda526e213f4d4c8d5196af6c/FlieSaver.js
 
 // ==/UserScript==
 
