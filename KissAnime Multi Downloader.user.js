@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      3
+// @version      3.1
 // @description  This is a userscript that will download multi episodes form KissAnime.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -128,15 +128,18 @@ function getAllEpisodes(){
     EpisodesLinks =[];
     EpisodesName = [];
     var x = $(".listing").find("a").toArray();
+    console.log(x);
     for(var i =0; i < x.length; i++){
-        var ee = "";
-        if(server == 1){
-            ee = x[i].href+"&s=beta";
-        }else{
-            ee = x[i].href+"&s=rapidvideo";
+        if(!x[i].href.includes("reddit")){
+            var ee = "";
+            if(server == 1){
+                ee = x[i].href+"&s=beta";
+            }else{
+                ee = x[i].href+"&s=rapidvideo";
+            }
+            EpisodesLinks.push(ee);
+            EpisodesName.push(x[i].innerText);
         }
-        EpisodesLinks.push(ee);
-        EpisodesName.push(x[i].innerText);
     }
 
      if(parseInt(start) < 0){
