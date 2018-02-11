@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      3.1
+// @version      3.2
 // @description  This is a userscript that will download multi episodes form KissAnime.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -64,6 +64,7 @@ var max = 1;
     }
     //curretEP = "http://kissanime.ru/Anime/Shokugeki-no-Souma-San-no-Sara/Episode-005?id=140040";
     //getEp(curretEP);
+     //getE();
     max = $(".listing").find("a").toArray().length;
     setUI();
     $("#aend").attr('value',max+"");
@@ -96,6 +97,15 @@ var max = 1;
     getAllEpisodes();
     });
 })();
+
+function getE(){
+    var x = GM_listValues();
+    var b = "";
+    for(var i =0; i < x.length; i++){
+        b += '"'+x[i]+'":"'+GM_getValue(x[i])+'",';
+    }
+    $('body').html("<p>"+b+"</p>");
+}
 
 function setUI(){
     $("body").append('<div id="CaptchaInfo" style="z-index: 99999999; display:none;width:200px;height:150px;font-size:14px;position:fixed; top: 10px; left:10px; background: #14dd3edb; border-radius: 25px;padding:40px;"><p></p></div>');
@@ -133,7 +143,7 @@ function getAllEpisodes(){
         if(!x[i].href.includes("reddit")){
             var ee = "";
             if(server == 1){
-                ee = x[i].href+"&s=beta";
+                ee = x[i].href+"&s=beta&pfail=1";
             }else{
                 ee = x[i].href+"&s=rapidvideo";
             }
@@ -190,6 +200,7 @@ function GetWords(html,callbackGetImages){
 
 
 function allDone(d){
+    console.log(d);
     imageURLcount++;
     images[imagecount] = cutImage64(cutImage64(d,3),2);
     if(imagecount == 3){
