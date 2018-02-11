@@ -310,7 +310,7 @@ function createTxtList(){
         list += encodeURI(EpisodesVideoLinks[i]) + "[" +  EpisodesName[i].replace(/[\s:\|\[\]\{\}]+/g,"_") + ".mp4\n";
     }
     $("#CaptchaInfo").show();
-    $("#CaptchaInfo").find("p").html("You need to download <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/5f62b6848a62d208ee799d6a8b256741fd7b9229/KissAnime%20Downloader.zip'>KissAnime Downloader.zip</a><br /><br /> <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/5f62b6848a62d208ee799d6a8b256741fd7b9229/README.md'>Read this.</a>");
+    $("#CaptchaInfo").find("p").html("You need to download <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/040e60bfcfc57c1b27e3ca7faf65204abf435056/KissAnime%20Downloader.zip'>KissAnime Downloader.zip</a><br /><br /> <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/5f62b6848a62d208ee799d6a8b256741fd7b9229/README.md'>Read this.</a>");
 
     download("list.txt","text/plain",list);
 }
