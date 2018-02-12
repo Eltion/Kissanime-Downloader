@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      3.2
+// @version      3.3
 // @description  This is a userscript that will download multi episodes form KissAnime.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -447,17 +447,24 @@ function isBasicJson(){
 }
 
 function getBasicJson(){
+
     $("#CaptchaInfo").show();
     $("#CaptchaInfo").find("p").html("First time running, fetching some files... Page will reload.");
     var msg='';
-
-    msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json", async: false}).responseText;
-
-    msg = JSON.parse(msg);
-    for(var i = 0; i < msg.length; i++){
-        GM_setValue(msg[i].n,msg[i].v);
-    }
-    location.reload();
+    //msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json", async: false}).responseText;
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json",
+        synchronous: true,
+        onload: function(response) {
+            msg = response.responseText;
+            msg = JSON.parse(msg);
+            for(var i = 0; i < msg.length; i++){
+                GM_setValue(msg[i].n,msg[i].v);
+            }
+            location.reload();
+        }
+    });
 }
 
 
