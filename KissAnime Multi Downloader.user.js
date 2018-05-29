@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      3.3
+// @version      3.3.1
 // @description  This is a userscript that will download multi episodes form KissAnime.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -443,7 +443,7 @@ function cutImage64(base64,s){
 }
 
 function isBasicJson(){
-    return GM_getValue("AnimeBro2",false);
+    return GM_getValue("AnimeBro3",false);
 }
 
 function getBasicJson(){
@@ -454,7 +454,7 @@ function getBasicJson(){
     //msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json", async: false}).responseText;
     GM_xmlhttpRequest({
         method: "GET",
-        url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json",
+        url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/eee0c4153d22cec5a5327efc8d7d8ba3b37394d9/KissAnime.Downloader.Chaptcha.Database2.json",
         synchronous: true,
         onload: function(response) {
             msg = response.responseText;
