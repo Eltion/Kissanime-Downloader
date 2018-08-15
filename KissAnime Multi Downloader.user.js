@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KissAnime Downloader
 // @namespace    https://greasyfork.org/en/users/135934-anime-bro1
-// @version      3.3.1
+// @version      3.3.2
 // @description  This is a userscript that will download multi episodes form KissAnime.
 // @author       AnimeBro1
 // @homepage     https://github.com/Eltion/Kissanime-Downloader
@@ -14,12 +14,12 @@
 // @grant        GM_deleteValue
 // @grant        GM_setValue
 // @grant        GM_xmlhttpRequest
-// @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
 
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/ee154d713ce5af9c031b4abdd20fae8bb7cc2dc5/css.js
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/4fc64d92baba62fb52de03a3472464c2b6466ed9/vr2.js
-// @require      https://cdn.rawgit.com/Stuk/jszip/579beb1d45c8d586d8be4411d5b2e48dea018c06/dist/jszip.min.js
-// @require      https://cdn.rawgit.com/Eltion/Kissanime-Downloader/b24ffcadd00a4f3eda526e213f4d4c8d5196af6c/FlieSaver.js
+// @require      https://github.com/Moocow9m/Kissanime-Downloader/raw/master/css.js
+// @require      https://github.com/Moocow9m/Kissanime-Downloader/raw/master/vr2.js
+// @require      https://github.com/Stuk/jszip/raw/master/dist/jszip.min.js
+// @require      https://github.com/Moocow9m/Kissanime-Downloader/raw/master/FlieSaver.js
 
 // ==/UserScript==
 
@@ -67,6 +67,9 @@ var max = 1;
      //getE();
     max = $(".listing").find("a").toArray().length;
     setUI();
+	$("#aquality").val("1080, 720, 480, 360");
+    $("#abeta").prop("checked", true);
+    $("#atxt").prop("checked", true);
     $("#aend").attr('value',max+"");
     $("#startscript").on('click',function(){
         start = $("#astart").val();
@@ -307,7 +310,7 @@ function ALLDONE(){
 function createTxtList(){
     var list ="";
     for(var i = 0; i < EpisodesVideoLinks.length; i++){
-        list += encodeURI(EpisodesVideoLinks[i]) + "[" +  EpisodesName[i].replace(/[\s:\|\[\]\{\}]+/g,"_") + ".mp4\n";
+        list += encodeURI(EpisodesVideoLinks[i]) + " " +  EpisodesName[i].replace(/[\s:\|\[\]\{\}]+/g,"_") + ".mp4\n";
     }
     $("#CaptchaInfo").show();
     $("#CaptchaInfo").find("p").html("You need to download <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/040e60bfcfc57c1b27e3ca7faf65204abf435056/KissAnime%20Downloader.zip'>KissAnime Downloader.zip</a><br /><br /> <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/5f62b6848a62d208ee799d6a8b256741fd7b9229/README.md'>Read this.</a>");
@@ -397,29 +400,42 @@ function beta(html){
 }
 
 function rapidvideo(html){
-    var qS = ["720","480","360"];
+    var qS = ["720", "480", "360"];
     var setQuality = "";
     var url = html.match(/https:\/\/www.rapidvideo.com\/e\/[^"']*/g);
-    for(var i = 0; i < quality.length; i++){
-        if(qS.includes(quality[i])){
-            setQuality = quality[i]; break;
-        }
-    }
-    console.log(setQuality);
-    url += "&q="+setQuality+"p";
-    //alert(url);
-    GM_xmlhttpRequest({
+        GM_xmlhttpRequest({
         method: "GET",
         url: ""+url,
         synchronous: true,
         onload: function(response) {
+            qS = response.responseText.match(/360p|480p|720p|1080p/g);
+        }
+    });
+    for (var i = 0; i < quality.length; i++) {
+        if (qS.includes(quality[i] + 'p')) {
+            setQuality = quality[i];
+            break;
+        }
+    }
+    //console.log(setQuality);
+    //url += "&q="+setQuality+"p";
+    //alert(url);
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: ""+url + "&q="+setQuality+"p",
+        synchronous: true,
+        onload: function(response) {
             //console.log(response);
-            var e = response.responseText.split('<source src="')[1].split('"')[0];
+            var e = response.responseText.match('\src: "(.+?)"');
+            if (e === undefined || e === null) {
+                e = response.responseText.match(/<source src="(.+?)"/);
+            }
             if (e === undefined || e === null) {
                 console.log(response.responseText);
-            }else{
+            } else {
                 console.log(e);
-                EpisodesVideoLinks.push(e);
+                EpisodesVideoLinks.push(e[1]);
+                success = true;
                 getNextEpisode(true);
                 //epsLinks.push(e);
             }
