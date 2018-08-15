@@ -112,7 +112,7 @@ function getE(){
 
 function setUI(){
     $("body").append('<div id="CaptchaInfo" style="z-index: 99999999; display:none;width:200px;height:150px;font-size:14px;position:fixed; top: 10px; left:10px; background: #14dd3edb; border-radius: 25px;padding:40px;"><p></p></div>');
-    var imgSrc = "https://cdn.rawgit.com/Eltion/Kissanime-Downloader/024c2d98b5580a14d1eaf74276d641c88f04764a/Download%20ButtonGreen.png";
+    var imgSrc = "https://github.com/Moocow9m/Kissanime-Downloader/raw/master/Download%20ButtonGreen.png";
     var html = '<div id="adownloader" style="position:fixed; bottom:10px; left:10px; z-index: 99999999;"><img id="startscript" style="cursor:pointer;float:left;position: relative; top:5px;margin-right:10px;" width="90px" src="'+imgSrc+'"><div style="background: #14dd3edb; position: relative;height:90px;padding:10px;border-radius: 10px;/* text-align:center; */color: white;float: left;"><div style="display: inline-block;float: left;margin-top: 13px;margin-left: 10px;">Start: <input value="1" id="astart" style="color:white;text-align:center;width: 30px;background: transparent;border: 0.5px solid white;border-radius:5px;" type="text"><input id="aend" value="7" style="color:white;text-align:center;width: 30px;background: transparent;border: 0.5px solid white;border-radius:5px;float: right;" type="text"><span style=" float: right; margin-right: 5px; ">End:</span><br><br>Quality: <input id="aquality" value="1080,720,480,360" style="color:white;text-align:center;width: 120px;background: transparent;border: 0.5px solid white;border-radius:5px;" type="text"></div><div style="display:inline-block;float:left;margin: 0px 10px;vertical-align: middle;"><input id="atxt" type="checkbox" style=" vertical-align: middle; ">Text<br><input id="ahtml" type="checkbox" style=" vertical-align: middle; ">Html<br><input id="am3u8" type="checkbox" style=" vertical-align: middle; ">M3u8<br><input id="idm" type="checkbox" style=" vertical-align: middle; ">IDM</div><div style="display:inline-block;float:left;margin: 0px 10px;vertical-align: middle;"><input id="abeta" type="checkbox" style=" vertical-align: middle; ">Beta<br><input id="arapid" type="checkbox" style=" vertical-align: middle; ">RapidVideo <br /><div style="text-align: center; font-size: 14pt;margin-top:10px;"><a href="https://github.com/Eltion/Kissanime-Downloader" target="_blank" >Help?</a></div></div></div></div>';
     var html2 = "<div id='ainfo' style=' padding:10px;z-index: 99999999; border-radius:20px;position:fixed; display: none; bottom:10px; right:10px; background:#14dd3edb;height:100px;width:400px;'><h3 style='text-align: center'>KissAnime Downloader</h3><p style='width:100%; word-wrap: break-word;' id='aoutput'></p><p id='aprogress'></p></div>";
     //var html3 = "<div id='ainfo2' style='background: red; padding: 10px; position: a'>"
@@ -313,7 +313,7 @@ function createTxtList(){
         list += encodeURI(EpisodesVideoLinks[i]) + " " +  EpisodesName[i].replace(/[\s:\|\[\]\{\}]+/g,"_") + ".mp4\n";
     }
     $("#CaptchaInfo").show();
-    $("#CaptchaInfo").find("p").html("You need to download <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/040e60bfcfc57c1b27e3ca7faf65204abf435056/KissAnime%20Downloader.zip'>KissAnime Downloader.zip</a><br /><br /> <a href='https://cdn.rawgit.com/Eltion/Kissanime-Downloader/5f62b6848a62d208ee799d6a8b256741fd7b9229/README.md'>Read this.</a>");
+    $("#CaptchaInfo").find("p").html("You need to download <a href='https://github.com/Moocow9m/Kissanime-Downloader/raw/master/KissAnime%20Downloader.zip'>KissAnime Downloader.zip</a><br /><br /> <a href='https://github.com/Moocow9m/Kissanime-Downloader/raw/master/README.md'>Read this.</a>");
 
     download("list.txt","text/plain",list);
 }
@@ -467,10 +467,10 @@ function getBasicJson(){
     $("#CaptchaInfo").show();
     $("#CaptchaInfo").find("p").html("First time running, fetching some files... Page will reload.");
     var msg='';
-    //msg = $.ajax({type: "GET", url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/111255eebd4ee25aaa2ad6d072b75ae446217d97/KissAnime.Downloader.Chaptcha.Database.json", async: false}).responseText;
+    //msg = $.ajax({type: "GET", url: "https://github.com/Moocow9m/Kissanime-Chaptcha-Auto-Complete/raw/master/KissAnime.Downloader.Chaptcha.Database.json", async: false}).responseText;
     GM_xmlhttpRequest({
         method: "GET",
-        url: "https://cdn.rawgit.com/Eltion/Kissanime-Chaptcha-Auto-Complete/eee0c4153d22cec5a5327efc8d7d8ba3b37394d9/KissAnime.Downloader.Chaptcha.Database2.json",
+        url: "https://github.com/Moocow9m/Kissanime-Chaptcha-Auto-Complete/raw/master/KissAnime.Downloader.Chaptcha.Database2.json",
         synchronous: true,
         onload: function(response) {
             msg = response.responseText;
