@@ -143,7 +143,7 @@ function getAllEpisodes(){
         if(!x[i].href.includes("reddit")){
             var ee = "";
             if(server == 1){
-                ee = x[i].href+"&s=beta&pfail=1";
+                ee = x[i].href+"&s=beta";
             }else{
                 ee = x[i].href+"&s=rapidvideo";
             }
